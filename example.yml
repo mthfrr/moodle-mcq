@@ -1,0 +1,9 @@
+---
+questions:
+  # the default "correct" answer is the first
+  - text: First question
+    opt: [correct, wrong, wrong]
+  - text: What is the best pet ?
+    opt: [dog, cat, fish]
+    # here the correct answer is `cat`
+    rep: 1
