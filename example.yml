@@ -1,9 +1,25 @@
 ---
 questions:
-  # the default "correct" answer is the first
-  - text: First question
-    opt: [correct, wrong, wrong]
-  - text: What is the best pet ?
-    opt: [dog, cat, fish]
-    # here the correct answer is `cat`
-    rep: 1
+  - text: This is a shortanswer
+    shortanswer:
+      - bird
+      - cat
+
+  - text: Mamals
+    multichoice:
+      - true: cat
+      - true: cow
+      - bird
+      - snake
+      - fish
+
+  - text: fish
+    multichoice:
+      - cat
+      - cow
+      - bird
+      - snake
+      - true: fish
+
+  - text: Essay question
+    essay: "do not put anything here"
