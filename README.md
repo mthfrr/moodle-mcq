@@ -19,14 +19,29 @@ $ ./main.py -o out.xml input.yml
 ```yml
 ---
 questions:
-  # the default "correct" answer is the first
-  - text: First question
-    opt: [correct, wrong, wrong]
-  - text: What is the best pet ?
-    opt: [dog, cat, fish]
-    # here the correct answer is `cat`
-    rep: 1
-    # rep index starts at 0
+  - text: This is a shortanswer
+    shortanswer:
+      - bird
+      - cat
+
+  - text: Mamals
+    multichoice:
+      - true: cat
+      - true: cow
+      - bird
+      - snake
+      - fish
+
+  - text: fish
+    multichoice:
+      - cat
+      - cow
+      - bird
+      - snake
+      - true: fish
+
+  - text: Essay question
+    essay: "do not put anything here"
 ```
 
 ## Outputed XML
@@ -35,47 +50,86 @@ The output format is
 [XML Moodle format](https://docs.moodle.org/402/en/Moodle_XML_format).
 
 ```xml
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <quiz>
-   <question type="multichoice">
-      <name>
-         <text>Question 01</text>
-      </name>
-      <questiontext format="markdown">
-         <text>First question</text>
-      </questiontext>
-      <answer fraction="100">
-         <text>correct</text>
-      </answer>
-      <answer fraction="0">
-         <text>wrong</text>
-      </answer>
-      <answer fraction="0">
-         <text>wrong</text>
-      </answer>
-      <shuffleanswers>1</shuffleanswers>
-      <single>true</single>
-      <answernumbering>abc</answernumbering>
-   </question>
-   <question type="multichoice">
-      <name>
-         <text>Question 02</text>
-      </name>
-      <questiontext format="markdown">
-         <text>What is the best pet ?</text>
-      </questiontext>
-      <answer fraction="0">
-         <text>dog</text>
-      </answer>
-      <answer fraction="100">
-         <text>cat</text>
-      </answer>
-      <answer fraction="0">
-         <text>fish</text>
-      </answer>
-      <shuffleanswers>1</shuffleanswers>
-      <single>true</single>
-      <answernumbering>abc</answernumbering>
-   </question>
+	<question type="shortanswer">
+		<name>
+			<text>Question 01</text>
+		</name>
+		<questiontext format="markdown">
+			<text>This is a shortanswer</text>
+		</questiontext>
+		<usecase>0</usecase>
+		<answer fraction="100">
+			<text>bird</text>
+		</answer>
+		<answer fraction="100">
+			<text>cat</text>
+		</answer>
+	</question>
+	<question type="multichoice">
+		<name>
+			<text>Question 02</text>
+		</name>
+		<questiontext format="markdown">
+			<text>Mamals</text>
+		</questiontext>
+		<answer fraction="50.0">
+			<text>cat</text>
+		</answer>
+		<answer fraction="50.0">
+			<text>cow</text>
+		</answer>
+		<answer fraction="-50.0">
+			<text>bird</text>
+		</answer>
+		<answer fraction="-50.0">
+			<text>snake</text>
+		</answer>
+		<answer fraction="-50.0">
+			<text>fish</text>
+		</answer>
+		<single>false</single>
+		<single>false</single>
+		<shuffleanswers>1</shuffleanswers>
+		<answernumbering>abc</answernumbering>
+	</question>
+	<question type="multichoice">
+		<name>
+			<text>Question 03</text>
+		</name>
+		<questiontext format="markdown">
+			<text>fish</text>
+		</questiontext>
+		<answer fraction="0">
+			<text>cat</text>
+		</answer>
+		<answer fraction="0">
+			<text>cow</text>
+		</answer>
+		<answer fraction="0">
+			<text>bird</text>
+		</answer>
+		<answer fraction="0">
+			<text>snake</text>
+		</answer>
+		<answer fraction="100">
+			<text>fish</text>
+		</answer>
+		<single>true</single>
+		<shuffleanswers>1</shuffleanswers>
+		<answernumbering>abc</answernumbering>
+	</question>
+	<question type="essay">
+		<name>
+			<text>Question 04</text>
+		</name>
+		<questiontext format="markdown">
+			<text>Essay question</text>
+		</questiontext>
+		<answer fraction="0">
+			<text>do not put anything here</text>
+		</answer>
+	</question>
 </quiz>
 ```
